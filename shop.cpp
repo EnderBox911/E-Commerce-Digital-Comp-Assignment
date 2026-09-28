@@ -32,7 +32,8 @@ vector<ShopItem> inventoryDB = {
     {"F01", "Techwear Cargo Pants", "Fashion", 145.00, 4.5},
     {"F02", "UV-Reactive Color-Changing Tee", "Fashion", 55.00, 4.2},
     {"F03", "LED Cyberpunk Visor Glasses", "Fashion", 35.00, 4.6},
-    
+    {"F04", "Eco-friendly Tote Bag", "Fashion", 25.00, 4.7},
+
     // Home related items
     {"H01", "Magnetic Levitating Moon Lamp", "Home", 125.00, 4.8},
     {"H02", "Smart Soil Moisture Sensor", "Home", 45.00, 4.1},
