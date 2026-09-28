@@ -46,7 +46,10 @@ vector<ShopItem> inventoryDB = {
     // Study items
     {"S01", "Pomodoro Productivity Timer Cube", "Study", 38.00, 4.7},
     {"S02", "Posture Correction Back Brace", "Study", 65.00, 4.3},
-    {"S03", "E-ink Distraction-Free Tablet", "Study", 950.00, 4.9}
+    {"S03", "E-ink Distraction-Free Tablet", "Study", 950.00, 4.9},
+    {"S04", "Digital Drawing Tablet", "Study", 1250.00, 4.8},
+    {"S05", "Ergonomic Mechanical Number Pad", "Study", 89.00, 4.6},
+    {"S06", "Smart LED Desk Lamp with Wireless Charger", "Study", 115.00, 4.7}
 };
 
 // Utility function to print a single item in a formatted table row
