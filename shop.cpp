@@ -119,6 +119,72 @@ void searchInventory()
     }
 }
 
+// Option 3: Recommendation logic based on category, max budget, and rating
+void generateRecommendation() {
+    int catChoice;
+    string targetCategory;
+    double maxSpend;
+
+    cout << "\n--- Smart Shopping Assistant ---\n";
+    cout << "Select Preferred Category:\n";
+    cout << "1. Electronics\n";
+    cout << "2. Gaming\n";
+    cout << "3. Fashion\n";
+    cout << "4. Home\n";
+    cout << "5. Study\n";
+    
+    // Category selection loop with input validation
+    while (true) {
+        cout << "Enter your choice (1-5): ";
+        if (cin >> catChoice && catChoice >= 1 && catChoice <=5) {
+            break;
+        }
+        cout << "Invalid selection! Please enter a number between 1 and 5.\n";
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
+
+    // Map choice to corresponding category string
+    switch (catChoice) {
+        case 1: targetCategory = "electronics"; break;
+        case 2: targetCategory = "gaming"; break;
+        case 3: targetCategory = "fashion"; break;
+        case 4: targetCategory = "home"; break;
+        case 5: targetCategory = "study"; break;
+    }
+    
+    cout << "Enter maximum budget (RM): ";
+    while (!(cin >> maxSpend) || maxSpend < 0) {
+        cout << "Invalid budget. Please enter a valid positive number: RM ";
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
+
+    bool isFound = false;
+
+    cout << "\n--- Recommended for You (Rating >= 4.5 & Under Budget) ---\n";
+    cout << left << setw(6) << "ID" 
+         << setw(45) << "Name" 
+         << setw(15) << "Category" 
+         << setw(13) << "Price" 
+         << "Rating\n";
+    cout << string(88, '-') << "\n";
+
+    for (const auto &item : inventoryDB) {
+        // parameters algorithmic filter
+        if (convertToLower(item.category) == targetCategory && 
+            item.price <= maxSpend && 
+            item.userRating >= 4.5) {
+            displayItem(item);
+            isFound = true;
+        }
+    }
+    
+    if (!isFound) {
+        cout << "No highly-rated products match your criteria. Try resetting your budget or category.\n";
+    }
+}
+
 int main()
 {
     int userChoice;
@@ -149,7 +215,7 @@ int main()
             searchInventory();
             break;
         case 3:
-            cout << "[Pending Recommendation Module]\n";
+            generateRecommendation();
             break;
         case 4:
         case 5:
