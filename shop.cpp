@@ -4,18 +4,9 @@
 #include <iomanip>
 #include <limits>
 #include <algorithm>
+#include "shopItem.hpp"
 
 using namespace std;
-
-// Struct to hold individual product details
-struct ShopItem
-{
-    string itemCode;
-    string itemName;
-    string category;
-    double price;
-    double userRating;
-};
 
 // Central database storing 15 products across 5 categories
 vector<ShopItem> inventoryDB = {
