@@ -82,7 +82,28 @@ void viewAllProducts()
     }
 }
 
+// fuzzy matching: Levenshtein distance calculation for fuzzy search logic
+int calculateEditDistance(const string &s1, const string &s2)
+{
+    int m = s1.length(), n = s2.length();
+    vector<vector<int>> dp(m + 1, vector<int>(n + 1));
+
+    for (int i = 0; i <= m; i++) dp[i][0] = i;
+    for (int j = 0; j <= n; j++) dp[0][j] = j;
+
+    for (int i = 1; i <= m; i++) {
+        for (int j = 1; j <= n; j++) {
+            if (s1[i - 1] == s2[j - 1])
+                dp[i][j] = dp[i - 1][j - 1];
+            else
+                dp[i][j] = 1 + min({dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]});
+        }
+    }
+    return dp[m][n];
+}
+
 // Option 2: Case-insensitive search matching against item names or categories
+// Search matching against item names or categories with fuzzy fallback
 void searchInventory()
 {
     string query;
@@ -94,6 +115,14 @@ void searchInventory()
     bool isFound = false;
 
     cout << "\n--- Search Results ---\n";
+    cout << left << setw(6) << "ID" 
+         << setw(45) << "Name" 
+         << setw(15) << "Category" 
+         << setw(13) << "Price" 
+         << "Rating\n";
+    cout << string(88, '-') << "\n";
+
+    // Pass 1: Substring search
     for (const auto &item : inventoryDB)
     {
         if (convertToLower(item.itemName).find(lowerQuery) != string::npos ||
@@ -104,9 +133,48 @@ void searchInventory()
         }
     }
 
+    // Pass 2: Fuzzy fallback for misspellings
     if (!isFound)
     {
-        cout << "No products found matching '" << query << "'.\n";
+        cout << "[No direct match found. Checking for closely related items...]\n\n";
+
+        for (const auto &item : inventoryDB)
+        {
+            bool matchThisItem = false;
+
+            // Check similarity with category
+            if (calculateEditDistance(lowerQuery, convertToLower(item.category)) <= 2) {
+                matchThisItem = true;
+            }
+
+            // Check similarity against individual words in item name
+            string word = "";
+            string lowerName = convertToLower(item.itemName);
+            for (char ch : lowerName) {
+                if (ch == ' ') {
+                    if (!word.empty() && calculateEditDistance(lowerQuery, word) <= 2) {
+                        matchThisItem = true;
+                        break;
+                    }
+                    word = "";
+                } else {
+                    word += ch;
+                }
+            }
+            if (!word.empty() && calculateEditDistance(lowerQuery, word) <= 2) {
+                matchThisItem = true;
+            }
+
+            if (matchThisItem) {
+                displayItem(item);
+                isFound = true;
+            }
+        }
+    }
+
+    if (!isFound)
+    {
+        cout << "No products found matching or closely resembling '" << query << "'.\n";
     }
 }
 
