@@ -5,6 +5,7 @@
 #include <limits>
 #include <algorithm>
 #include "shopItem.hpp"
+#include "user.hpp"
 
 using namespace std;
 
