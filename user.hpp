@@ -21,15 +21,15 @@ class User {
             cout << string(88, '-') << "\n";
 
             // Going through each element inside cart
-            for (int i = 1; i <= cart.size(); i++) {
+            for (int i = 0; i < cart.size(); i++) {
 
                 // Prints the details of the item
                 cout << left << setw(45) << cart[i].itemName
                 << "RM " << setw(8) << fixed << setprecision(2) << cart[i].price << endl;
 
                 // If the end of the cart is reached, print out the total
-                if (i == cart.size()) {
-                    cout << left << "RM " << totalPrice << endl;
+                if (i + 1 == cart.size()) {
+                    cout << right << setw(60)  << "RM " << totalPrice << endl;
                 }
 
             }
@@ -39,7 +39,7 @@ class User {
         void updateTotalPrice() {
             totalPrice = 0;
             // Going through each element inside cart and recalculating the price
-            for (int i = 1; i <= cart.size(); i++) {
+            for (int i = 0; i < cart.size(); i++) {
 
                 totalPrice += cart[i].price;
 

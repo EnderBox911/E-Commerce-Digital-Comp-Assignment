@@ -212,3 +212,43 @@ void generateRecommendation() {
     }
 }
 
+// Menu to facilitate the user's add to cart function
+void addItemToCartMenu(User &shopper) {
+    string itemCode;
+    int itemIndex;
+    bool itemExists = false;
+    bool running = true;
+
+    do {
+        cout << "Please enter the Product ID (case-sensitive) or \"X\" to return to the menu: ";
+        cin >> itemCode;
+
+        // Stop the function if user selected to stop
+        if (itemCode == "X" || itemCode == "x") {
+            running = false;
+
+        } else {
+            // Continue with program otherwise
+
+            // Checking if item code exists in the database
+            for (int i = 0; i < inventoryDB.size(); i++) {
+                if (inventoryDB[i].itemCode == itemCode) {
+                    itemExists = true;
+                    itemIndex = i;
+                }
+            }
+
+            // Inform the user if the item doesn't exist
+            if (!itemExists) {
+                cout << "That item code is invalid! Please enter a correct code or \"X\" to return to the menu\n";
+            } else {
+                // Item exists in the database, add it into the cart
+                cout << "Adding item: " << inventoryDB[itemIndex].itemName << " to the cart!\n";
+                shopper.addToCart(inventoryDB[itemIndex]);
+            }
+
+        }
+
+    } while (!itemExists && running);
+
+}

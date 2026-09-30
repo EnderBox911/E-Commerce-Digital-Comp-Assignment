@@ -5,10 +5,12 @@
 #include <limits>
 #include <algorithm>
 #include "shopLogic.hpp"
+#include "user.hpp"
 
 int main()
 {
     int userChoice;
+    User shopper;
 
     do
     {
@@ -39,7 +41,11 @@ int main()
             generateRecommendation();
             break;
         case 4:
+            addItemToCartMenu(shopper);
+            break;
         case 5:
+            shopper.displayCart();
+            break;
         case 6:
             cout << "\n[System] Routing to Cart Module...\n";
             break;
