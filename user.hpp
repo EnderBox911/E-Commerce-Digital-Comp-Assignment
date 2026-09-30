@@ -17,19 +17,22 @@ class User {
         void displayCart() {
 
             cout << "\n--- Shopping Cart ---\n";
-            cout << left << setw(45) << "Name" << setw(13) << "Price" << "Total\n";
+            cout << left << setw(6) << "ID" 
+            << setw(45) << "Name" 
+            << setw(13) << "Price" 
+            << "Total\n";
             cout << string(88, '-') << "\n";
 
             // Going through each element inside cart
             for (int i = 0; i < cart.size(); i++) {
 
                 // Prints the details of the item
-                cout << left << setw(45) << cart[i].itemName
+                cout << left << setw(6) << cart[i].itemCode << setw(45) << cart[i].itemName
                 << "RM " << setw(8) << fixed << setprecision(2) << cart[i].price << endl;
 
                 // If the end of the cart is reached, print out the total
                 if (i + 1 == cart.size()) {
-                    cout << right << setw(60)  << "RM " << totalPrice << endl;
+                    cout << right << setw(66)  << "RM " << totalPrice << endl;
                 }
 
             }
