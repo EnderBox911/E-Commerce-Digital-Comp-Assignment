@@ -1,2 +1,3 @@
 # Compiled binaries
 *.exe
+build/
