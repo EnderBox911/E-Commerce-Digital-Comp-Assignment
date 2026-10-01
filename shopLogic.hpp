@@ -37,15 +37,6 @@ string convertToLower(string str)
     return str;
 }
 
-// utility function to print a single item in a formatted table row
-void displayAllItems(const ShopItem &item)
-{
-    cout << left << setw(6) << item.itemCode
-         << setw(45) << item.itemName
-         << setw(15) << item.category
-         << "RM " << setw(8) << fixed << setprecision(2) << item.price
-         << item.userRating << " Stars\n";
-}
 
 // Option 1: Show all product if user choose first option
 void viewAllProducts()
@@ -195,8 +186,10 @@ void generateRecommendation() {
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
     }
 
-    bool isFound = false;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    clearScreen();
 
+    bool isFound = false;
     cout << "\n--- Recommended for You (Rating >= 4.5 & Under Budget) ---\n";
     cout << left << setw(6) << "ID" 
          << setw(45) << "Name" 
