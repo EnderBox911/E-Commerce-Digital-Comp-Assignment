@@ -64,7 +64,7 @@ int main()
         {
             cout << "\nPress Enter to return to the main menu...";
             cin.get();
-            clearScreen(); // Clears display before redrawing main menu
+            clearScreen(); // Clears display and navigate to main menu
         }
     } while (userChoice != 7);
 
