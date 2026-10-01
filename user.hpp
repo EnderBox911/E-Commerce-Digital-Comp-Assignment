@@ -11,6 +11,8 @@ class User {
     public:
         // The cart will contain a vector of shop items
         vector<ShopItem> cart;
+        float subtotal = 0;
+        int discountPercentage = 0;
         float totalPrice = 0;
 
         // Class function that will display the items listed in it's cart
@@ -20,7 +22,7 @@ class User {
             cout << left << setw(6) << "ID" 
             << setw(45) << "Name" 
             << setw(13) << "Price" 
-            << "Total\n";
+            << "Subtotal\n";
             cout << string(88, '-') << "\n";
 
             // Going through each element inside cart
@@ -32,19 +34,19 @@ class User {
 
                 // If the end of the cart is reached, print out the total
                 if (i + 1 == cart.size()) {
-                    cout << right << setw(66)  << "RM " << totalPrice << endl;
+                    cout << right << setw(66)  << "RM " << subtotal << endl;
                 }
 
             }
         }
 
         // Function to calculate the entire cart's price
-        void updateTotalPrice() {
-            totalPrice = 0;
+        void updatesubtotal() {
+            subtotal = 0;
             // Going through each element inside cart and recalculating the price
             for (int i = 0; i < cart.size(); i++) {
 
-                totalPrice += cart[i].price;
+                subtotal += cart[i].price;
 
             }
         }
@@ -53,7 +55,7 @@ class User {
         void addToCart(ShopItem item) {
             cart.push_back(item);
 
-            updateTotalPrice();
+            updatesubtotal();
         }
 
         void removeFromCart(ShopItem item) {
@@ -75,7 +77,7 @@ class User {
             // Removes the item at that given index
             cart.erase(cart.begin() + itemIndex);
 
-            updateTotalPrice();
+            updatesubtotal();
         }
 
 };

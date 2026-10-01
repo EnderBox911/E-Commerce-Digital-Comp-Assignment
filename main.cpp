@@ -12,6 +12,9 @@ int main()
     int userChoice;
     User shopper;
 
+    vector<string> couponCodes = {"2026SALE", "MOREMONEY", "ILOVESHOPPING"};
+    int discountAmount = 15; // As a percentage
+
     do
     {
         cout << "\n=== SHOPPING SMART ASSISTANT ===\n";
@@ -62,7 +65,7 @@ int main()
             break;
         case 7:
             // Checkout
-            cout << "\n[System] Routing to Cart Module...\n";
+            checkoutMenu(shopper, couponCodes, discountAmount);
             break;
         case 8:
             // Exit

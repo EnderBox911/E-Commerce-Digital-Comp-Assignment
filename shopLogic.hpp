@@ -284,3 +284,63 @@ void removeItemFromCartMenu(User &shopper) {
         shopper.removeFromCart(item);
     }
 }
+
+void checkoutMenu(User &shopper, vector<string> couponCodes, int discountAmount) {
+    string couponCode;
+    bool couponExists = false;
+    bool exitCouponCheck = false;
+
+    float deliverCharge = 15.0;
+
+    do {
+        cout << "Please enter your coupon code, enter \"X\" if you do not wish to: ";
+        cin >> couponCode;
+
+        if (couponCode == "X" or couponCode == "x") {
+            // User selected to not input coupon
+            exitCouponCheck = true;
+            // Sets the discount percentage as nothing
+            shopper.discountPercentage = 0;
+        } else {
+            // Code was provided
+            for (int i = 0; i < couponCodes.size(); i++) {
+                // Checks if the code is valid
+                if (couponCode == couponCodes[i]) {
+                    cout << "Coupon exists! You get " << discountAmount << "\% off!\n";
+                    // Set the discount percentage as the set value
+                    shopper.discountPercentage = discountAmount;
+                    couponExists = true;
+                    break;
+                }
+            }
+
+            if (!couponExists) {
+                cout << "That coupon doesn't exist!\n";
+            }
+        }
+
+    } while (!couponExists && !exitCouponCheck);
+
+    // Show the current shopping cart
+    shopper.displayCart();
+
+    // Display the delivery charges
+    cout << string(88, '-') << "\n";
+    cout << left << "Delivery Charge "  
+    << right << setw(66) << fixed << setprecision(2) << "RM " << deliverCharge << endl;
+
+    // Display the discount provided
+    float discountTotal = (shopper.subtotal + deliverCharge) * (static_cast<float>(shopper.discountPercentage)/100);
+    cout << left << "Discount " 
+    << right << setw(73) << fixed << setprecision(2) << "RM " << discountTotal << endl;
+
+    
+    // Display the total price including delivery and discount
+    shopper.totalPrice = max(static_cast<double>(shopper.subtotal + deliverCharge - discountTotal), 0.0);
+    cout << string(88, '-') << "\n";
+    cout << left << "Total " 
+    << right << setw(76) << fixed << setprecision(2) << "RM " << shopper.totalPrice << endl;
+
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    
+}
