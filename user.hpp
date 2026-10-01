@@ -80,4 +80,12 @@ class User {
             updatesubtotal();
         }
 
+        void clearCart() {
+            // Clearing the cart and resetting the prices
+            cart.clear();
+            subtotal = 0;
+            discountPercentage = 0;
+            totalPrice = 0;
+        }
+
 };

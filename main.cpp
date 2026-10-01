@@ -12,7 +12,7 @@ int main()
     int userChoice;
     User shopper;
 
-    vector<string> couponCodes = {"2026SALE", "MOREMONEY", "ILOVESHOPPING"};
+    vector<string> couponCodes = {"2026SALE", "MOREMONEY", "ILOVESHOPPING", "BIGSALE", "SHOPPINGDABEST2026", "SALESALESALE", "BIGDISCOUNT", "DISCOUNT2026"};
     int discountAmount = 15; // As a percentage
 
     do
