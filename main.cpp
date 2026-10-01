@@ -46,10 +46,12 @@ int main()
         case 4:
             // Add to cart
             addItemToCartMenu(shopper);
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
             break;
         case 5:
             // Remove from cart
             removeItemFromCartMenu(shopper);
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
             break;
         case 6:
             // View cart
@@ -70,12 +72,6 @@ int main()
         if (userChoice >= 1 && userChoice <= 7)
         {
             cout << "\nPress Enter to return to the main menu...";
-
-            // check if have any keyboard buffer
-            if (cin.rdbuf()->in_avail() > 0)
-            {
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            }
             cin.get();
             clearScreen(); // Clears display and navigate to main menu
         }
