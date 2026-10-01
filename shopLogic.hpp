@@ -220,9 +220,9 @@ void generateRecommendation() {
     }
 }
 
-// Menu to facilitate the user's add to cart function
-void addItemToCartMenu(User &shopper) {
+ShopItem checkIfItemExist() {
     string itemCode;
+    ShopItem item;
     int itemIndex;
     bool itemExists = false;
     bool running = true;
@@ -250,13 +250,44 @@ void addItemToCartMenu(User &shopper) {
             if (!itemExists) {
                 cout << "That item code is invalid! Please enter a correct code or \"X\" to return to the menu\n";
             } else {
-                // Item exists in the database, add it into the cart
-                cout << "Adding item: " << inventoryDB[itemIndex].itemName << " to the cart!\n";
-                shopper.addToCart(inventoryDB[itemIndex]);
+                // Item exists in the database
+                item = inventoryDB[itemIndex];
+                return item;
             }
 
         }
 
     } while (!itemExists && running);
 
+    if (!running) {
+        // Code so that the program can know if the user was the one who stopped it
+        item = {"User stopped", "", "", 0.0, 0.0};
+    }
+
+    return item;
+}
+
+// Menu to facilitate the user's add to cart function
+void addItemToCartMenu(User &shopper) {
+    ShopItem item = checkIfItemExist();
+
+    if (item.itemCode == "User stopped") {
+        // Quit and return to menu
+        return;
+    } else {
+        cout << "Adding item: " << item.itemName << " to the cart!\n";
+        shopper.addToCart(item);
+    }
+}
+
+void removeItemFromCartMenu(User &shopper) {
+    ShopItem item = checkIfItemExist();
+
+    if (item.itemCode == "User stopped") {
+        // Quit and return to menu
+        return;
+    } else {
+        cout << "Removing item: " << item.itemName << " from the cart!\n";
+        shopper.removeFromCart(item);
+    }
 }

@@ -63,15 +63,15 @@ class User {
             int itemIndex = 0;
 
             // Going through each element inside cart and recalculating the price
-            for (int i = 0; i < cart.size(); i++) {
-
+            // Starts from the bottom of the cart and works its way up
+            for (int i = cart.size() - 1; i >= 0; i--) {
                 if (item.itemCode == cart[i].itemCode) {
                     itemIndex = i;
                     break;
                 }
 
             }
-
+            
             // Removes the item at that given index
             cart.erase(cart.begin() + itemIndex);
 

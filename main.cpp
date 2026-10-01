@@ -16,7 +16,7 @@ int main()
     {
         cout << "\n=== SHOPPING SMART ASSISTANT ===\n";
         cout << "1. Browse Products\n2. Search/Filter Products\n3. Get Product Recommendation\n";
-        cout << "4. Add to Cart (Akmal's Module)\n5. View Cart (Akmal's Module)\n6. Checkout (Akmal's Module)\n7. Exit\n";
+        cout << "4. Add to Cart\n5. Remove from Cart\n6. View Cart\n7. Checkout\n8. Exit\n";
         cout << "Select an option: ";
 
         // Prevents infinite loops if the user enters text instead of a number
@@ -44,29 +44,38 @@ int main()
             generateRecommendation();
             break;
         case 4:
+            // Add to cart
             addItemToCartMenu(shopper);
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             break;
         case 5:
-            shopper.displayCart();
+            // Remove from cart
+            removeItemFromCartMenu(shopper);
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
             break;
         case 6:
-            cout << "\n[System] Routing to Cart Module...\n";
+            // View cart
+            shopper.displayCart();
             break;
         case 7:
+            // Checkout
+            cout << "\n[System] Routing to Cart Module...\n";
+            break;
+        case 8:
+            // Exit
             cout << "\nExiting System.\n";
             break;
         default:
             cout << "\nInvalid selection. Try again.\n";
         }
 
-        if (userChoice >= 1 && userChoice <= 6)
+        if (userChoice >= 1 && userChoice <= 7)
         {
             cout << "\nPress Enter to return to the main menu...";
             cin.get();
             clearScreen(); // Clears display and navigate to main menu
         }
-    } while (userChoice != 7);
+    } while (userChoice != 8);
 
     return 0;
 }
