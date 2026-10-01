@@ -26,6 +26,9 @@ int main()
             cout << "Invalid input. Please enter a number.\n";
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Press Enter to try again...";
+            cin.get();
+            clearScreen();
             continue;
         }
 
