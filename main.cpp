@@ -29,6 +29,9 @@ int main()
             continue;
         }
 
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        clearScreen();
+
         switch (userChoice)
         {
         case 1:
@@ -42,6 +45,7 @@ int main()
             break;
         case 4:
             addItemToCartMenu(shopper);
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
             break;
         case 5:
             shopper.displayCart();
@@ -54,6 +58,13 @@ int main()
             break;
         default:
             cout << "\nInvalid selection. Try again.\n";
+        }
+
+        if (userChoice >= 1 && userChoice <= 6)
+        {
+            cout << "\nPress Enter to return to the main menu...";
+            cin.get();
+            clearScreen(); // Clears display before redrawing main menu
         }
     } while (userChoice != 7);
 

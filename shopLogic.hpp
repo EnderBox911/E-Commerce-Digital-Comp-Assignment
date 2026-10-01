@@ -6,10 +6,19 @@
 #include <iomanip>
 #include <limits>
 #include <algorithm>
+#include <cstdlib>
 #include "shopItem.hpp"
 #include "user.hpp"
 
 using namespace std;
+
+inline void clearScreen() {
+#ifdef _WIN32
+    system("cls");
+#else
+    system("clear");
+#endif
+}
 
 // Utility function to print a single item in a formatted table row
 void displayItem(const ShopItem &item)
@@ -76,7 +85,6 @@ void searchInventory()
 {
     string query;
     cout << "\nEnter product name or category to search: ";
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
     getline(cin, query);
 
     string lowerQuery = convertToLower(query);
