@@ -577,6 +577,15 @@ void processPayment(double totalPrice, User &shopper) {
 }
 
 void checkoutMenu(User &shopper, vector<string> couponCodes, int discountAmount) {
+
+    // Check if the shopping cart is empty
+    if (shopper.cart.empty()) {
+
+        cout << "Your cart is empty! Please add an item before checking out.\n";
+        return;
+
+    }
+
     string couponCode;
     bool couponExists = false;
     bool exitCouponCheck = false;
