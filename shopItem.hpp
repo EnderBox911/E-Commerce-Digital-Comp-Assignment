@@ -39,7 +39,8 @@ vector<ShopItem> inventoryDB = {
     {"H01", "Magnetic Levitating Moon Lamp", "Home", 125.00, 4.8},
     {"H02", "Smart Soil Moisture Sensor", "Home", 45.00, 4.1},
     {"H03", "Automatic Self-Stirring Mug", "Home", 28.00, 4.4},
-
+    {"H04", "Vintage Vlip Clock", "Home", 85.00, 4.5},
+    
     // Study items
     {"S01", "Pomodoro Productivity Timer Cube", "Study", 38.00, 4.7},
     {"S02", "Posture Correction Back Brace", "Study", 65.00, 4.3},
