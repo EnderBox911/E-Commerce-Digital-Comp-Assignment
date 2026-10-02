@@ -19,7 +19,7 @@ vector<ShopItem> inventoryDB = {
     {"E01", "Retro Bluetooth Cassette Player", "Electronics", 185.00, 4.6},
     {"E02", "Smart Ring Health Tracker", "Electronics", 450.00, 4.3},
     {"E03", "Holographic Projection Clock", "Electronics", 210.00, 4.8},
-
+    {"E04", "Wireless Presenter Remote", "Electronics", 45.00, 4.6},
     // Gaming accessories
     {"G01", "RGB Arcade Fight Stick", "Gaming", 320.00, 4.7},
     {"G02", "Mobile Gaming Thumb Sleeves", "Gaming", 12.50, 4.9},
