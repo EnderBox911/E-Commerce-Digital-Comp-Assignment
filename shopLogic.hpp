@@ -293,54 +293,97 @@ void processPayment(double totalPrice, User &shopper) {
     bool validPaymentMethod = false;
 
     do {
+
         cout << "\n";
+
         cout << "================ PAYMENT METHOD ================\n";
         cout << "1. Cash\n";
         cout << "2. Card\n";
         cout << "3. Return\n";
         cout << "=================================================\n";
+        cout << "Enter X at any time to return to the menu.\n";
         cout << "Please select your payment method: ";
 
-        cin >> paymentMethod;
+        string paymentChoice;
+        cin >> paymentChoice;
+
+        // User selected to go back
+        if (paymentChoice == "X" || paymentChoice == "x") {
+
+            return;
+
+        }
+
+        // Try to convert the input into a number
+        try {
+
+            paymentMethod = stoi(paymentChoice);
+
+        } catch (...) {
+
+            cout << "Invalid payment! Please select 1, 2, or 3.\n";
+            continue;
+
+        }
 
         if (paymentMethod == 1) {
+
             // User selected to pay by cash
             validPaymentMethod = true;
 
-            // Cash payment
+            string cashInput;
             double cashAmount;
 
             do {
-                cout << fixed << setprecision(2);
-                cout << "Total amount to pay: RM " << totalPrice << endl;
-                cout << "Enter cash amount: RM ";
-                cin >> cashAmount;
 
-                // User inputed a wrong data type 
-                if (cin.fail()) {
-                    cin.clear();
-                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cout << fixed << setprecision(2);
+                cout << "\nTotal amount to pay: RM " << totalPrice << endl;
+                cout << "Enter cash amount or X to return: RM ";
+
+                cin >> cashInput;
+
+                // User selected to go back
+                if (cashInput == "X" || cashInput == "x") {
+
+                    return;
+
+                }
+
+                // Try to convert the cash input into a number
+                try {
+
+                    cashAmount = stod(cashInput);
+
+                } catch (...) {
 
                     cout << "Invalid input! Please enter a valid amount.\n";
+                    continue;
 
-                } else if (cashAmount < totalPrice) {
-                    // User gave less cash than required
+                }
+
+                // User gave less cash than required
+                if (cashAmount < totalPrice) {
+
                     cout << "Insufficient payment! Please enter at least RM "
                          << totalPrice << ".\n";
 
                 } else {
-                    // Correct values were given, change is provided
+
+                    // Correct value was given, change is provided
                     double change = cashAmount - totalPrice;
 
                     cout << "\nPayment successful!\n";
                     cout << "Cash received: RM " << cashAmount << endl;
                     cout << "Change: RM " << change << endl;
 
+                    break;
+
                 }
 
-            } while (cashAmount < totalPrice || cin.fail());
+            } while (true);
 
         } else if (paymentMethod == 2) {
+
             // User paid by card instead
             validPaymentMethod = true;
 
@@ -348,71 +391,108 @@ void processPayment(double totalPrice, User &shopper) {
             string cardNumber;
             string expiryDate;
             string cvv;
+
             bool validCardNumber;
 
             // Card number validation
             do {
+
                 validCardNumber = true;
 
-                cout << "\nEnter card number (16 digits): ";
+                cout << "\nEnter card number (16 digits) or X to return: ";
                 cin >> cardNumber;
+
+                // User selected to go back
+                if (cardNumber == "X" || cardNumber == "x") {
+
+                    return;
+
+                }
 
                 // Checking if card number is not right length
                 if (cardNumber.length() != 16) {
+
                     validCardNumber = false;
 
                 } else {
+
                     // Making sure it is all digits and no letters
                     for (char digit : cardNumber) {
+
                         if (!isdigit(digit)) {
+
                             validCardNumber = false;
                             break;
+
                         }
+
                     }
+
                 }
 
                 if (!validCardNumber) {
-                    cout << "Invalid card number! Card number must contain exactly 16 digits.\n";
+
+                    cout << "Invalid card number! "
+                         << "Card number must contain exactly 16 digits.\n";
 
                 }
 
             } while (!validCardNumber);
 
+
             // Expiry date validation
             bool validExpiry;
+
             do {
+
                 validExpiry = true;
 
-                cout << "Enter expiry date (MM/YY): ";
+                cout << "Enter expiry date (MM/YY) or X to return: ";
                 cin >> expiryDate;
 
-                
+                // User selected to go back
+                if (expiryDate == "X" || expiryDate == "x") {
+
+                    return;
+
+                }
 
                 if (expiryDate.length() != 5 || expiryDate[2] != '/') {
-                    // User provided wrong format for the expiry date 
+
+                    // User provided wrong format for the expiry date
                     validExpiry = false;
 
                 } else {
 
-                    if (!isdigit(expiryDate[0]) || !isdigit(expiryDate[1]) ||
-                        !isdigit(expiryDate[3]) || !isdigit(expiryDate[4])) {
+                    if (!isdigit(expiryDate[0]) ||
+                        !isdigit(expiryDate[1]) ||
+                        !isdigit(expiryDate[3]) ||
+                        !isdigit(expiryDate[4])) {
+
                         // Making sure it is proper numbers and no letters
                         validExpiry = false;
 
                     } else {
+
                         // Convert the string month numbers into an integer
                         int month = stoi(expiryDate.substr(0, 2));
 
                         if (month < 1 || month > 12) {
+
                             // Confirming a proper month was provided
                             validExpiry = false;
+
                         }
+
                     }
+
                 }
 
                 if (!validExpiry) {
-                    // Invalid date was provided
-                    cout << "Invalid expiry date! Please use MM/YY format.\n";
+
+                    cout << "Invalid expiry date! "
+                         << "Please use MM/YY format.\n";
+
                 }
 
             } while (!validExpiry);
@@ -420,52 +500,78 @@ void processPayment(double totalPrice, User &shopper) {
 
             // CVV validation
             bool validCVV;
+
             do {
+
                 validCVV = true;
 
-                cout << "Enter CVV (3 digits): ";
+                cout << "Enter CVV (3 digits) or X to return: ";
                 cin >> cvv;
+
+                // User selected to go back
+                if (cvv == "X" || cvv == "x") {
+
+                    return;
+
+                }
 
                 // If CVV is too long
                 if (cvv.length() != 3) {
+
                     validCVV = false;
 
                 } else {
+
                     // Checking if every character is a digit
                     for (char digit : cvv) {
+
                         if (!isdigit(digit)) {
+
                             validCVV = false;
                             break;
+
                         }
+
                     }
+
                 }
 
                 if (!validCVV) {
-                    // Invalid CVV was provided
-                    cout << "Invalid CVV! CVV must contain exactly 3 digits.\n";
+
+                    cout << "Invalid CVV! "
+                         << "CVV must contain exactly 3 digits.\n";
+
                 }
 
             } while (!validCVV);
 
+
             // All card details were correct
             cout << "\nCard details accepted.\n";
+
             cout << "Payment of RM " << fixed << setprecision(2)
                  << totalPrice << " successful!\n";
 
         } else if (paymentMethod == 3) {
+
             // User selected to go back
-            validPaymentMethod = false;
             return;
+
         } else {
-            // Invalid option were selected
-            cout << "Invalid payment! Please select either 1, 2 or 3.\n";
+
+            // Invalid option was selected
+            cout << "Invalid payment! "
+                 << "Please select either 1, 2 or 3.\n";
+
         }
 
     } while (!validPaymentMethod);
 
     if (validPaymentMethod) {
+
         // Payment went through, clear old cart
         shopper.clearCart();
+
     }
 
 }
