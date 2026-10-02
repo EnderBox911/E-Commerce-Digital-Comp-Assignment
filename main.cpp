@@ -4,6 +4,8 @@
 #include <iomanip>
 #include <limits>
 #include <algorithm>
+#include <cstdlib>
+#include <ctime>
 #include "shopLogic.hpp"
 #include "user.hpp"
 
@@ -15,8 +17,16 @@ int main()
     vector<string> couponCodes = {"2026SALE", "MOREMONEY", "ILOVESHOPPING", "BIGSALE", "SHOPPINGDABEST2026", "SALESALESALE", "BIGDISCOUNT", "DISCOUNT2026"};
     int discountAmount = 15; // As a percentage
 
+    srand(time(0));
+    string todaysCoupon = couponCodes[rand() % couponCodes.size()];
+
     do
     {
+        cout << "\n==============================\n";
+        cout << "     TODAY'S COUPON CODE!\n";
+        cout << "         " << todaysCoupon << "\n";
+        cout << "==============================\n";
+
         cout << "\n=== SHOPPING SMART ASSISTANT ===\n";
         cout << "1. Browse Products\n2. Search/Filter Products\n3. Get Product Recommendation\n";
         cout << "4. Add to Cart\n5. Remove from Cart\n6. View Cart\n7. Checkout\n8. Exit\n";
